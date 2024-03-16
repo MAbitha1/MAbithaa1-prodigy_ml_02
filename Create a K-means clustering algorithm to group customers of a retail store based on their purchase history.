@@ -1,0 +1,28 @@
+python
+Copy code
+import numpy as np
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler
+
+# Sample data representing customers' purchase history
+purchase_history = np.array([[100, 50, 20],    # Customer 1
+                             [150, 40, 25],    # Customer 2
+                             [90, 60, 30],     # Customer 3
+                             [120, 45, 18],    # Customer 4
+                             [80, 70, 35],     # Customer 5
+                             [130, 55, 22]])   # Customer 6
+
+# Standardize the data
+scaler = StandardScaler()
+scaled_purchase_history = scaler.fit_transform(purchase_history)
+
+# Apply K-means clustering
+kmeans = KMeans(n_clusters=3, random_state=42)
+kmeans.fit(scaled_purchase_history)
+
+# Assign clusters to each customer
+cluster_labels = kmeans.labels_
+
+# Display the cluster labels for each customer
+for i in range(len(purchase_history)):
+    print("Customer {}: Cluster {}".format(i+1, cluster_labels[i]+1))
